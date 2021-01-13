@@ -1,0 +1,44 @@
+{
+  "name": "Umami",
+  "description": "Umami is a simple, fast, website analytics alternative to Google Analytics.",
+  "keywords": [
+    "analytics",
+    "charts",
+    "statistics",
+    "web-analytics"
+  ],
+  "website": "https://umami.is",
+  "repository": "https://github.com/mikecao/umami",
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "env": {
+    "HASH_SALT": {
+      "description": "Used to generate unique values for your installation",
+      "required": true,
+      "generator": "secret"
+    },
+    "DATABASE_URL": {
+      "description": "URL for the database, set automatically by the add-on",
+      "required": true
+    },
+    "IGNORE_IP": {
+      "description": "Comma-delimited list of IP address to exclude from data collection",
+      "required": false
+    },
+    "FORCE_SSL": {
+      "description": "Redirect all requests from http to https in the Umami application",
+      "required": false,
+      "value": 1
+    },
+    "LOG_QUERY": {
+      "description": "If you are running in development mode, this will log database queries to the console for debugging",
+      "required": false,
+      "value": 1
+    }
+  },
+  "scripts": {
+    "postdeploy": "psql $DATABASE_URL -f sql/schema.postgresql.sql"
+  },
+  "success_url": "/"
+}
